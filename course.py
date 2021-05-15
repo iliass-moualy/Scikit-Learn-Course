@@ -266,7 +266,7 @@ test_x_vectors = vectorizer.transform(test_x)
 ###########################
 #     Classification      #
 ###########################
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, confusion_matrix
 
 
 #Linear SVM
@@ -285,6 +285,10 @@ acc = accuracy_score(test_y, predictions)
 
 print("Accurancy o SVM: ", round(acc*100,2), "%")
 
+conf_matrix = confusion_matrix(test_y,predictions, labels=['POSITIVE','NEGATIVE'])
+
+print("SVM Confusion Matrix")
+print(conf_matrix)
 
 #Decision Tree
 from sklearn.tree import DecisionTreeClassifier
@@ -298,8 +302,12 @@ clf_dec.predict(test_x_vectors[0])
 predictions = clf_dec.predict(test_x_vectors)
 acc = accuracy_score(test_y, predictions)
 
-#print("Accurancy o Decision Tree: ", round(acc*100,2), "%")
+print("Accurancy o Decision Tree: ", round(acc*100,2), "%")
 
+conf_matrix = confusion_matrix(test_y,predictions, labels=['POSITIVE','NEGATIVE'])
+
+print("SVM Confusion Matrix")
+print(conf_matrix)
 
 #Naive_bayes
 from sklearn.naive_bayes import GaussianNB
@@ -312,8 +320,12 @@ clf_gnb.predict(test_x_vectors[0].toarray())
 predictions = clf_gnb.predict(test_x_vectors.toarray())
 acc = accuracy_score(test_y, predictions)
 
-#print("Accurancy o Gaussian Naive Bayes: ", round(acc*100,2), "%")
+print("Accurancy o Gaussian Naive Bayes: ", round(acc*100,2), "%")
 
+conf_matrix = confusion_matrix(test_y,predictions, labels=['POSITIVE','NEGATIVE'])
+
+print("SVM Confusion Matrix")
+print(conf_matrix)
 
 #Logistic Regression
 
@@ -327,9 +339,12 @@ clf_log.predict(test_x_vectors[0])
 predictions = clf_log.predict(test_x_vectors)
 acc = accuracy_score(test_y, predictions)
 
-#print("Accurancy o Logisti Regression: ", round(acc*100,2), "%")
+print("Accurancy o Logisti Regression: ", round(acc*100,2), "%")
 
+conf_matrix = confusion_matrix(test_y,predictions, labels=['POSITIVE','NEGATIVE'])
 
+print("SVM Confusion Matrix")
+print(conf_matrix)
 #Passive Aggressive
 
 from sklearn.linear_model import PassiveAggressiveClassifier
@@ -346,11 +361,11 @@ print("Accurancy of Passive Aggressive Classifier: ", round(acc*100,2), "%")
 
 # F1 Scores
 from sklearn.metrics import f1_score
-
+print("F1 Scores:")
 print("SVM: ", f1_score(test_y, clf_svm.predict(test_x_vectors), average=None, labels=[Sentiment.POSITIVE, Sentiment.NEGATIVE]))
-#print("DEC: ", f1_score(test_y, clf_dec.predict(test_x_vectors), average=None, labels=[Sentiment.POSITIVE, Sentiment.NEGATIVE]))
-#print("GNB: ", f1_score(test_y, clf_gnb.predict(test_x_vectors.toarray()), average=None, labels=[Sentiment.POSITIVE, Sentiment.NEGATIVE]))
-#print("LOG: ", f1_score(test_y, clf_log.predict(test_x_vectors.toarray()), average=None, labels=[Sentiment.POSITIVE, Sentiment.NEGATIVE]))
+print("DEC: ", f1_score(test_y, clf_dec.predict(test_x_vectors), average=None, labels=[Sentiment.POSITIVE, Sentiment.NEGATIVE]))
+print("GNB: ", f1_score(test_y, clf_gnb.predict(test_x_vectors.toarray()), average=None, labels=[Sentiment.POSITIVE, Sentiment.NEGATIVE]))
+print("LOG: ", f1_score(test_y, clf_log.predict(test_x_vectors.toarray()), average=None, labels=[Sentiment.POSITIVE, Sentiment.NEGATIVE]))
 print("PAC: ", f1_score(test_y, clf_pac.predict(test_x_vectors), average=None, labels=[Sentiment.POSITIVE, Sentiment.NEGATIVE]))
 
 
